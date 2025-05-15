@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'CRM Contact Manager',
   description: 'A modern CRM contact management system',
+  icons: {
+    icon: '/crud-favi.png',
+  },
 };
 
 export default function RootLayout({
