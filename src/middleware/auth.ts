@@ -18,7 +18,7 @@ export async function verifyAuth(request: NextRequest) {
   try {
     // Verify the JWT token
     // Replace 'your-secret-key' with your actual JWT secret key
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'your-secret-key');
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET ?? 'your-secret-key');
     await jwtVerify(token, secret);
     return true;
   } catch (error) {

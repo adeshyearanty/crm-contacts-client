@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     
     // Basic search query
-    const query = searchParams.get('query') || '';
+    const query = searchParams.get('query') ?? '';
     
     // Status filter
     const status = searchParams.get('status');
@@ -40,12 +40,12 @@ export async function GET(request: Request) {
     const createdBefore = searchParams.get('createdBefore');
     
     // Sorting
-    const sortField = searchParams.get('sortBy') || 'createdAt';
-    const sortOrder = searchParams.get('sortOrder') || 'desc';
+    const sortField = searchParams.get('sortBy') ?? 'createdAt';
+    const sortOrder = searchParams.get('sortOrder') ?? 'desc';
     
     // Pagination
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
+    const page = parseInt(searchParams.get('page') ?? '1');
+    const limit = parseInt(searchParams.get('limit') ?? '10');
     const skip = (page - 1) * limit;
 
     await dbConnect();
@@ -96,7 +96,7 @@ export async function GET(request: Request) {
     }
 
     // Date range filters
-    if (createdAfter || createdBefore) {
+    if (createdAfter ?? createdBefore) {
       filterQuery.createdAt = {};
       if (createdAfter) filterQuery.createdAt.$gte = new Date(createdAfter);
       if (createdBefore) filterQuery.createdAt.$lte = new Date(createdBefore);

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Contact } from '@/types/contact';
 
-export default function ContactDetails({ params }: { params: Promise<{ id: string }> }) {
+export default function ContactDetails({ params }: Readonly<{ params: Promise<{ id: string }> }>) {
   const resolvedParams = use(params);
   const router = useRouter();
   const [contact, setContact] = useState<Contact | null>(null);
@@ -57,10 +57,10 @@ export default function ContactDetails({ params }: { params: Promise<{ id: strin
     return <div className="text-center py-4">Loading...</div>;
   }
 
-  if (error || !contact) {
+  if (error ?? !contact) {
     return (
       <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-        {error || 'Contact not found'}
+        {error ?? 'Contact not found'}
       </div>
     );
   }
@@ -108,20 +108,20 @@ export default function ContactDetails({ params }: { params: Promise<{ id: strin
 
             <div>
               <h3 className="text-sm font-medium text-gray-500">Phone</h3>
-              <p className="mt-1 text-sm text-gray-900">{contact.phone || '-'}</p>
+              <p className="mt-1 text-sm text-gray-900">{contact.phone ?? '-'}</p>
             </div>
 
             <div>
               <h3 className="text-sm font-medium text-gray-500">Company</h3>
               <p className="mt-1 text-sm text-gray-900">
-                {contact.company || '-'}
+                {contact.company ?? '-'}
               </p>
             </div>
 
             <div>
               <h3 className="text-sm font-medium text-gray-500">Job Title</h3>
               <p className="mt-1 text-sm text-gray-900">
-                {contact.jobTitle || '-'}
+                {contact.jobTitle ?? '-'}
               </p>
             </div>
 
@@ -140,14 +140,14 @@ export default function ContactDetails({ params }: { params: Promise<{ id: strin
                     : 'bg-gray-100 text-gray-800'
                 }`}
               >
-                {contact.status || 'N/A'}
+                {contact.status ?? 'N/A'}
               </span>
             </div>
 
             <div>
               <h3 className="text-sm font-medium text-gray-500">Source</h3>
               <p className="mt-1 text-sm text-gray-900">
-                {contact.source || '-'}
+                {contact.source ?? '-'}
               </p>
             </div>
 

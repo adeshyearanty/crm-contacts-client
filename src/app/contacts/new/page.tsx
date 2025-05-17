@@ -15,7 +15,7 @@ export default function NewContact() {
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to create contact');
+      throw new Error(error.message ?? 'Failed to create contact');
     }
   };
 

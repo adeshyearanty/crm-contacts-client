@@ -403,7 +403,7 @@ export default function Home() {
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
-                        {contact.status || 'N/A'}
+                        {contact.status ?? 'N/A'}
                       </span>
                     </div>
                     

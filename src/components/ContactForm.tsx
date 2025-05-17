@@ -47,14 +47,14 @@ export default function ContactForm({ initialData, onSubmit }: ContactFormProps)
         // Ensure nested objects have all their fields
         address: {
           ...defaultFormData.address,
-          ...(initialData.address || {}),
+          ...(initialData.address ?? {}),
         },
         socialMedia: {
           ...defaultFormData.socialMedia,
-          ...(initialData.socialMedia || {}),
+          ...(initialData.socialMedia ?? {}),
         },
         // Ensure tags is always an array
-        tags: initialData.tags || [],
+        tags: initialData.tags ?? [],
       });
     }
   }, [initialData]);

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { setAuthToken } from '@/utils/auth';
+import { useState, FormEvent, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { setAuthToken } from "@/utils/auth";
 
 interface FormData {
   firstName: string;
@@ -15,37 +15,37 @@ interface FormData {
 export default function RegisterPage() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
+        throw new Error(data.error ?? "Registration failed");
       }
 
       // Store the token and redirect to contacts page on successful registration
       setAuthToken(data.token);
-      router.push('/contacts');
+      router.push("/contacts");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,9 @@ export default function RegisterPage() {
           )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="firstName" className="sr-only">First Name</label>
+              <label htmlFor="firstName" className="sr-only">
+                First Name
+              </label>
               <input
                 id="firstName"
                 name="firstName"
@@ -76,13 +78,17 @@ export default function RegisterPage() {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="First Name"
                 value={formData.firstName}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, firstName: e.target.value })}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, firstName: e.target.value })
+                }
                 minLength={2}
                 maxLength={50}
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="sr-only">Last Name</label>
+              <label htmlFor="lastName" className="sr-only">
+                Last Name
+              </label>
               <input
                 id="lastName"
                 name="lastName"
@@ -91,13 +97,17 @@ export default function RegisterPage() {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Last Name"
                 value={formData.lastName}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, lastName: e.target.value })}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
                 minLength={2}
                 maxLength={50}
               />
             </div>
             <div>
-              <label htmlFor="email" className="sr-only">Email address</label>
+              <label htmlFor="email" className="sr-only">
+                Email address
+              </label>
               <input
                 id="email"
                 name="email"
@@ -106,11 +116,15 @@ export default function RegisterPage() {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 value={formData.email}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
               <input
                 id="password"
                 name="password"
@@ -119,9 +133,11 @@ export default function RegisterPage() {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password (min 8 chars, include uppercase, lowercase, number/special char)"
                 value={formData.password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 minLength={8}
-                pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*(\\d|[!@#$%^&*(),.?\":{}|<>])).*$";
+                pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*(\\d|[!@#$%^&*(),.?\":{}|<>])).*$'
                 title="Password must contain uppercase, lowercase, and number/special character"
               />
             </div>
@@ -133,12 +149,15 @@ export default function RegisterPage() {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {loading ? 'Creating account...' : 'Create account'}
+              {loading ? "Creating account..." : "Create account"}
             </button>
           </div>
 
           <div className="text-sm text-center">
-            <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link
+              href="/login"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
               Already have an account? Sign in
             </Link>
           </div>

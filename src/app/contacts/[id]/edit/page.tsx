@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import ContactForm from '@/components/ContactForm';
 import { Contact, ContactFormData } from '@/types/contact';
 
-export default function EditContact({ params }: { params: Promise<{ id: string }> }) {
+export default function EditContact({ params }: Readonly<{ params: Promise<{ id: string }> }>) {
   const resolvedParams = use(params);
   const router = useRouter();
   const [contact, setContact] = useState<Contact | null>(null);
@@ -43,7 +43,7 @@ export default function EditContact({ params }: { params: Promise<{ id: string }
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to update contact');
+      throw new Error(error.message ?? 'Failed to update contact');
     }
   };
 
@@ -58,11 +58,11 @@ export default function EditContact({ params }: { params: Promise<{ id: string }
     );
   }
 
-  if (error || !contact) {
+  if (error ?? !contact) {
     return (
       <div className="max-w-2xl mx-auto mt-8">
         <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-          {error || 'Contact not found'}
+          {error ?? 'Contact not found'}
         </div>
         <div className="mt-4">
           <button
