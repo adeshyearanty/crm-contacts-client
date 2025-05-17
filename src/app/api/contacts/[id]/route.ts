@@ -10,7 +10,8 @@ interface RouteParams {
 export async function GET(request: Request, { params }: RouteParams) {
   try {
     await dbConnect();
-    const contact = await Contact.findById(params.id);
+    const {id} = await params;
+    const contact = await Contact.findById(id);
     if (!contact) {
       return NextResponse.json({ error: 'Contact not found' }, { status: 404 });
     }

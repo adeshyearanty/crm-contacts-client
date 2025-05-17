@@ -5,8 +5,14 @@ import { FilterQuery } from 'mongoose';
 import { Contact as ContactType } from '@/types/contact';
 import { MongoError } from 'mongodb';
 
+import { verifyAuth, unauthorized } from '@/middleware/auth';
+
 export async function GET(request: Request) {
   try {
+    // Verify authentication
+    if (!(await verifyAuth(request))) {
+      return unauthorized();
+    }
     const { searchParams } = new URL(request.url);
     
     // Basic search query
@@ -124,6 +130,10 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    // Verify authentication
+    if (!(await verifyAuth(request))) {
+      return unauthorized();
+    }
     await dbConnect();
     const body = await request.json();
     const contact = await Contact.create(body);
@@ -141,4 +151,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-} 
+}
