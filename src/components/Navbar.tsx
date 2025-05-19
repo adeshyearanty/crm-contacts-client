@@ -35,7 +35,7 @@ export default function Navbar() {
             >
               Contacts
             </Link>
-            {token ? (
+            {/* {token ? (
               <button
                 onClick={handleLogout}
                 className="text-gray-700 hover:bg-red-100 px-3 py-2 rounded-md text-sm font-medium"
@@ -49,7 +49,7 @@ export default function Navbar() {
               >
                 Login
               </Link>
-            )}
+            )} */}
           </div>
         </div>
       </div>
